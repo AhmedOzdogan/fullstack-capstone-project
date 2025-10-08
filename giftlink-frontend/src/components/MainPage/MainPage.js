@@ -11,11 +11,14 @@ function MainPage() {
       try {
         let url = `${urlConfig.backendUrl}/api/gifts`;
         const response = await fetch(url);
+        console.log("Fetch response:", response);
+        console.log("Fetch response status:", response.status);
 
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
         const data = await response.json();
+        console.log(data);
         setGifts(data);
       } catch (error) {
         console.error("Error fetching gifts:", error);
