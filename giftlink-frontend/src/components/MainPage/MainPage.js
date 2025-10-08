@@ -52,9 +52,9 @@ function MainPage() {
 
   return (
     <div className="container mt-5">
-      <div className="row">
+      <div className="row w-100">
         {gifts.map((gift) => (
-          <div key={gift.id || gift._id} className="col-md-4 mb-4">
+          <div key={gift.id || gift._id} className="col-lg-4 col-md-6 mb-8">
             <div className="card product-card">
               <div className="image-placeholder">
                 {gift.image ? (

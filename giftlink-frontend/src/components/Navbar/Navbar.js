@@ -2,9 +2,11 @@ import React, { useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { urlConfig } from "../../config";
 import { useAppContext } from "../../context/AuthContext";
+import "./Navbar.css";
 
 export default function Navbar() {
   const { isLoggedIn, setIsLoggedIn, userName, setUserName } = useAppContext();
+  const [isNavOpen, setIsNavOpen] = React.useState(false);
 
   const navigate = useNavigate();
   useEffect(() => {
@@ -31,87 +33,91 @@ export default function Navbar() {
   const profileSecton = () => {
     navigate(`/app/profile`);
   };
+
+  const toggleNavbar = () => {
+    setIsNavOpen(!isNavOpen);
+  };
+
+  const closeNavbar = () => {
+    setIsNavOpen(false);
+  };
   return (
     <>
-      <nav
-        className="navbar navbar-expand-lg navbar-light bg-light"
-        id="navbar_container"
-      >
-        <a className="navbar-brand" href={`${urlConfig.backendUrl}/app`}>
+      <nav className="navbar " id="navbar_container">
+        <a className="navbar-brand" href={`/app`}>
           GiftLink
         </a>
 
         <button
           className="navbar-toggler"
           type="button"
-          data-toggle="collapse"
-          data-target="#navbarNav"
+          onClick={toggleNavbar}
           aria-controls="navbarNav"
-          aria-expanded="false"
+          aria-expanded={isNavOpen}
           aria-label="Toggle navigation"
         >
           <span className="navbar-toggler-icon"></span>
         </button>
 
         <div
-          className="collapse navbar-collapse justify-content-end"
+          className={`navbar-collapse ${isNavOpen ? "show" : ""}`}
           id="navbarNav"
         >
           <ul className="navbar-nav">
             <li className="nav-item">
-              <a className="nav-link" href="/home.html">
+              <a className="nav-link" href="/home.html" onClick={closeNavbar}>
                 Home
-              </a>{" "}
-              {/* Link to home.html */}
+              </a>
             </li>
             <li className="nav-item">
-              <Link className="nav-link" to="/app">
+              <Link className="nav-link" to="/app" onClick={closeNavbar}>
                 Gifts
-              </Link>{" "}
-              {/* Updated Link */}
+              </Link>
             </li>
             <li className="nav-item">
-              <Link className="nav-link" to="/app/search">
+              <Link className="nav-link" to="/app/search" onClick={closeNavbar}>
                 Search
               </Link>
             </li>
-            <ul className="navbar-nav ml-auto">
-              {isLoggedIn ? (
-                <>
-                  <li className="nav-item">
-                    {" "}
-                    <span
-                      className="nav-link"
-                      style={{ color: "black", cursor: "pointer" }}
-                      onClick={profileSecton}
-                    >
-                      Welcome, {userName}
-                    </span>{" "}
-                  </li>
-                  <li className="nav-item">
-                    <button
-                      className="nav-link login-btn"
-                      onClick={handleLogout}
-                    >
-                      Logout
-                    </button>
-                  </li>
-                </>
-              ) : (
-                <>
-                  <li className="nav-item">
-                    <Link className="nav-link login-btn" to="/app/login">
-                      Login
-                    </Link>
-                  </li>
-                  <li className="nav-item">
-                    <Link className="nav-link register-btn" to="/app/register">
-                      Register
-                    </Link>
-                  </li>
-                </>
-              )}
-            </ul>
+            {isLoggedIn ? (
+              <>
+                <li className="nav-item">
+                  <span
+                    className="nav-link"
+                    style={{ color: "black", cursor: "pointer" }}
+                    onClick={profileSecton}
+                  >
+                    {userName}
+                  </span>
+                </li>
+                <li className="nav-item">
+                  <button className="nav-link" onClick={handleLogout}>
+                    Logout
+                  </button>
+                </li>
+              </>
+            ) : (
+              <>
+                <li className="nav-item">
+                  <Link
+                    className="nav-link"
+                    to="/app/login"
+                    onClick={closeNavbar}
+                  >
+                    Login
+                  </Link>
+                </li>
+                <li className="nav-item">
+                  <Link
+                    className="nav-link"
+                    to="/app/register"
+                    onClick={closeNavbar}
+                  >
+                    Register
+                  </Link>
+                </li>
+              </>
+            )}
           </ul>
         </div>
       </nav>

@@ -1,5 +1,20 @@
-
 html {
+  overflow-y: scroll;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+#root {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+  overflow-x: hidden;
   overflow-y: scroll;
 }
 /* Primary color for headers and important buttons */
@@ -92,7 +107,6 @@ body,
   border-top-right-radius: 0.25rem;
 }
 
-
 .card-body {
   padding: 1rem;
   flex-grow: 1; /* Make body grow to fill space */
@@ -124,7 +138,8 @@ body,
 }
 
 /* Customize the navbar brand and links */
-.navbar-brand, .nav-link {
+.navbar-brand,
+.nav-link {
   font-size: 1.2rem; /* Increase font size */
   font-weight: 500; /* Medium weight for better visibility */
 }
@@ -149,7 +164,8 @@ body,
 }
 
 /* Highlight the active nav link */
-.nav-item.active .nav-link, .nav-item .nav-link.active {
+.nav-item.active .nav-link,
+.nav-item .nav-link.active {
   color: #d63384; /* A distinct color for the active page */
   background-color: transparent; /* Optional: Adds a background color to the active link */
   text-decoration: underline; /* Underlines the active link */
