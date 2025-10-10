@@ -22,14 +22,23 @@ jobs:
       - name: Install JSHint
         run: npm install -g jshint
 
+      - name: Create JSHint config
+        run: |
+          echo '{
+            "esversion": 8,
+            "node": true,
+            "undef": true,
+            "unused": true
+          }' > .jshintrc
+
       - name: Run Linter
         run: |
           echo "Running JSHint..."
-          find ./giftlink-backend -name app.js -exec jshint --esversion 8 {} +
-          find ./giftlink-backend -name auth.js -exec jshint --esversion 8 {} +
-          find ./giftlink-backend -name giftRoutes.js -exec jshint --esversion 8 {} +
-          find ./giftlink-backend -name searchRoutes.js -exec jshint --esversion 8 {} +
-          echo "Linted all JS files successfully"
+          jshint giftlink-backend/app.js
+          jshint giftlink-backend/routes/auth.js
+          jshint giftlink-backend/routes/giftRoutes.js
+          jshint giftlink-backend/routes/searchRoutes.js
+          echo "✅ Linted all JS files successfully"
 
   client_build:
     name: Build client
@@ -48,4 +57,4 @@ jobs:
           cd giftlink-frontend
           npm install
           npm run build
-          echo "Client-side build successfully"
+          echo "✅ Client-side build successful"
